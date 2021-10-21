@@ -1,13 +1,15 @@
-on: push
-name: Publish docs if changed
+name: 'My Workflow'
+
+on:
+  release:
+    types: [published]
+
 jobs:
-  checkChangesInDocs:
-    name: Check changes in docs
-    runs-on: ubuntu-latest
+  deploy:
+    name: 'Deploy to Netlify'
     steps:
-    - uses: actions/checkout@master
-    - name: Check changes in stories
-      uses: netlify/actions/diff-includes@master
-      with:
-        args: docs
+      - uses: jsmrcaga/action-netlify-deploy@v1.1.0
+        with:
+          NETLIFY_AUTH_TOKEN: -8Y0LKf57WOi73Tqsm3tlFxny-WuSEzhjVlCTIZja0w
+          NETLIFY_DEPLOY_TO_PROD: true
 
