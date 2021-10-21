@@ -1,0 +1,27 @@
+name: 'My Workflow'
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    # Operating system to run job on
+    runs-on: ubuntu-latest
+
+    # Steps in job
+    steps:
+      # Get code from repo
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      # ( Build to ./dist or other directory... )
+      - name: Deploy to netlify
+        uses: netlify/actions/cli@master
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        with:
+       #   args: deploy --dir=build --prod
+          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
